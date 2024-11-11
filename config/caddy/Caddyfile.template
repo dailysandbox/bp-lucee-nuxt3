@@ -1,0 +1,32 @@
+api.{{DOMAIN_NAME}} {
+    # Proxy all traffic to the Lucee server
+    reverse_proxy http://lucee:8888 {
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    tls /etc/caddy/certs/local.cert.pem /etc/caddy/certs/local.key.pem
+
+    encode gzip
+    log {
+        output stdout
+        format console
+    }
+}
+
+{{DOMAIN_NAME}} {
+    reverse_proxy host.docker.internal:3500 {
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    tls /etc/caddy/certs/local.cert.pem /etc/caddy/certs/local.key.pem
+
+    encode gzip
+    log {
+        output stdout
+        format console
+    }
+}

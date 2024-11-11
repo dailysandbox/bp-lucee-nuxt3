@@ -1,0 +1,42 @@
+:root {
+	//screen sizes
+	@screen-lg: 1200px;
+	@screen-md: 992px;
+	@screen-sm: 768px;
+	@screen-xs: 480px;
+	@screen-xxs: 384px;
+	@screen-md-max: (@screen-lg - 1);
+	@screen-sm-max: (@screen-md - 1);
+	@screen-xs-max: (@screen-sm - 1);
+	@screen-xxs-max: (@screen-xs - 1);
+
+	//media queries
+	--xs-and-up: ~'only screen'; //xs is the smallest size, so "xs and up" is basically "everything on a screen"
+	--xs-only: ~'only screen and (max-width: @{screen-xs-max})';
+	--sm-and-up: ~'only screen and (min-width: @{screen-sm})';
+	--sm-only: ~'only screen and (min-width: @{screen-sm}) and (max-width: @{screen-sm-max})';
+	--md-and-up: ~'only screen and (min-width: @{screen-md})';
+	--md-only: ~'only screen and (min-width: @{screen-md}) and (max-width: @{screen-md-max})';
+	--lg-and-up: ~'only screen and (min-width: @{screen-lg})';
+
+	--print: ~'print';
+	--mobile: var(--xs-only);
+	--tablet: var(--sm-only);
+	--desktop: var(--md-and-up);
+	--retina: var(--lg-and-up);
+}
+
+//media query names like Bootstrap
+@xs-and-up: ~"only screen"; //xs is the smallest size, so "xs and up" is basically "everything on a screen"
+@xs-only: ~"only screen and (max-width: @{screen-xs-max})";
+@sm-and-up: ~"only screen and (min-width: @{screen-sm})";
+@sm-only: ~"only screen and (min-width: @{screen-sm}) and (max-width: @{screen-sm-max})";
+@md-and-up: ~"only screen and (min-width: @{screen-md})";
+@md-only: ~"only screen and (min-width: @{screen-md}) and (max-width: @{screen-md-max})";
+@lg-and-up: ~"only screen and (min-width: @{screen-lg})";
+
+@print: ~"print";
+@mobile: @xs-only;
+@tablet: @sm-only;
+@desktop: @md-and-up;
+@retina: @lg-and-up;

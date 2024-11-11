@@ -1,0 +1,24 @@
+# Use the specified Lucee image without Nginx
+FROM lucee/lucee:6.1.1.33-SNAPSHOT-tomcat9.0-jdk11-temurin-jammy
+
+# Set environment variables (optional)
+ENV LUCEE_ADMIN_PASSWORD={{LUCEE_ADMIN_PASSWORD}}
+
+# Copy your ColdFusion application files into the container
+COPY ./server/app /var/www
+
+# Copy the SSL certificates into the container
+COPY ./config/certs/local.cert.pem /etc/caddy/certs/local.cert.pem
+COPY ./config/certs/local.key.pem /etc/caddy/certs/local.key.pem
+
+# Clear out the logs directories
+RUN rm -rf ./server/logs/lucee-logs/*
+RUN rm -rf ./server/logs/tomcat-logs/*
+
+ENV TZ=America/New_York
+
+# Expose the port that Tomcat runs on
+EXPOSE 8888
+
+# Default command to start Lucee (Tomcat)
+CMD ["catalina.sh", "run"]
